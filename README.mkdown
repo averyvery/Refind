@@ -1,0 +1,4 @@
+# Refind 0.1
+
+Refind is a Google Chrome extension that acts like the default "find" behavior with a twist: once you select your element, 
+you can hit "enter" to click it.
