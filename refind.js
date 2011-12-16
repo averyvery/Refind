@@ -169,7 +169,6 @@
 			
 				var top = _.getPosition(elem) - 100;
 				top = (top === NaN || top < 0) ? 0 : top;
-				window.console && console.log && console.log(elem);
 				window.scrollTo(0, top);
 
 			},
