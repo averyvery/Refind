@@ -25,16 +25,19 @@
 			
 			},
 
-			initOnCorrectKeys : function(event){
+			interpretKeyStrokes : function(event){
 
 				var is_alt_ctrl_f = (
 					event.keyCode === 70 && 
 					event.ctrlKey && 
 					event.altKey
-				);
+				), 
+				is_esc = event.keyCode === 27;
 
 				if(is_alt_ctrl_f){
 					_.initialized ? _.focus() : _.init();
+				} else if(is_esc) {
+					_.initialized && _.destroy();
 				}
 			 
 			},
@@ -42,6 +45,12 @@
 			focus : function(){
 			
 				_.input.focus();
+
+			},
+
+			destroy : function(){
+
+				_.wrapper.parentNode.removeChild(_.wrapper);
 
 			},
 		
@@ -238,6 +247,6 @@
 
 	window._refind = window._refind || _;
 
-	window.addEventListener('keydown', _.initOnCorrectKeys)
+	window.addEventListener('keydown', _.interpretKeyStrokes);
 
 })(window, document);
