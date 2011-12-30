@@ -62,10 +62,41 @@
 				_.input.className = '_refind_input';
 				_.count = document.createElement('p');
 				_.count.className = '_refind_count';
-				_.clickable_elements = document.getElementsByTagName('a');
+				_.clickable_elements = _.getClickableElements();
 				_.wrapper.appendChild(_.input);
 				_.wrapper.appendChild(_.count);
 				document.body.appendChild(_.wrapper);
+
+			},
+
+			getClickableElements : function(){
+			
+				var links = _.getArrayOfElements('a'),
+					inputs = _.getArrayOfElements('input'),
+					buttons = _.getArrayOfElements('button'),
+					submit_inputs = [];
+
+				for(var i = 0, length = inputs.length; i < length; i++){
+					var input = inputs[i];
+					if(input.type === 'submit'){
+						submit_inputs.push(input);
+					}
+				}
+
+				return links.concat(submit_inputs).concat(buttons);
+
+			},
+
+			getArrayOfElements : function(selector){
+
+				var array = [],
+					elements = document.getElementsByTagName(selector);
+			
+				for(var i = 0, length = elements.length; i < length; i++){
+					array.push(elements[i]);
+				}
+
+				return array;
 
 			},
 
@@ -131,6 +162,9 @@
 
 				_.each(_.clickable_elements, function(elem){
 					elem.innerHTML.match(pattern) && _.found_elements.push(elem);
+					if(elem.type === 'submit'){
+						elem.value.match(pattern) && _.found_elements.push(elem);
+					}
 				});
 
 			},
