@@ -1,5 +1,5 @@
 ._refind_highlight {
-	outline: 5px solid rgba(255, 0, 0, 0.4);
+	outline: 5px solid rgba(255, 0, 0, 0.25);
 	-webkit-transition: all 0.3 ease-in-out;
 }
 ._refind_highlight_focus {
