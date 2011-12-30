@@ -84,7 +84,8 @@
 				if (event.keyCode === 13) {
 					_.click(); 
 				} else if (event.keyCode === 9){
-					_.cycleElements(); 
+					var cycle_back = event.shiftKey ? true : false;
+					_.cycleElements(cycle_back); 
 					event.preventDefault && event.preventDefault();
 					event.stopPropagation && event.stopPropagation();
 					event.cancelBubble = true;
@@ -159,18 +160,19 @@
 
 			},
 
-			cycleElements : function(){
+			cycleElements : function(cycle_back){
 			
-				var first_elem;
+				var shifted_elem,
+					removal_method = cycle_back ? 'pop' : 'shift',
+					addition_method = cycle_back ? 'unshift' : 'push';
 
 				if(_.found_elements[0]){
 					_.removeClass(_.found_elements[0], _.focus_class);
-					first_elem = _.found_elements.shift();
-					_.found_elements.push(first_elem);
+					shifted_elem = _.found_elements[removal_method]();
+					_.found_elements[addition_method](shifted_elem);
 					_.addClass(_.found_elements[0], _.focus_class);
 					_.scrollTo(_.found_elements[0]);
 				}
-
 
 			},
 
