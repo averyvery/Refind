@@ -1,11 +1,11 @@
 ._refind_highlight {
-	outline: 5px solid rgba(255, 0, 0, 0.25);
+	outline: 5px solid rgba(255, 0, 0, 0.25) !important;
 	-webkit-transition: all 0.3 ease-in-out;
 }
 ._refind_highlight_focus {
-	outline-color : rgba(255, 0, 0, 0.8); 
+	outline-color : rgba(255, 0, 0, 0.8) !important; 
 }
-._refind_wrapper {
+#_refind_wrapper {
 	background: rgba(10, 10, 10, 0.9);
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 	left: 0;
@@ -15,7 +15,7 @@
 	width: 100%;
 	z-index: 10000;
 }
-._refind_input {
+#_refind_input {
 	background: transparent;
 	border: none;
 	color: #ccc;
@@ -25,7 +25,7 @@
 	-webkit-transition: all 0.2 ease-in-out;
 	width: 40%;
 }
-._refind_count {
+#_refind_count {
 	color: #777;
 	font-family: sans-serif;
 	font-weight: 300;
@@ -34,13 +34,13 @@
 	text-align: right;
 	padding: 20px;
 }
-._refind_input,
-._refind_count {
+#_refind_input,
+#_refind_count {
 	font-family: sans-serif;
 	font-weight: 300;
 	font-size: 20px;
 }
-._refind_input:focus {
+#_refind_input:focus {
 	outline: none;
 	color: #ddd;
 }

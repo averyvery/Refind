@@ -1,6 +1,6 @@
 {
 	"name": "Refind",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Fast on-page finding and clicking.",
 	"icons": { 
 		"16"	: "icon16.png",
@@ -9,7 +9,7 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["http://*/*|https://*/*"],
+			"matches": ["<all_urls>"],
 			"css": ["refind.css"],
 			"js": ["refind.js"]
 		}

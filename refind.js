@@ -57,11 +57,11 @@
 			createElements : function(){
 
 				_.wrapper = document.createElement('div');
-				_.wrapper.className = '_refind_wrapper';
+				_.wrapper.id = '_refind_wrapper';
 				_.input = document.createElement('input');
-				_.input.className = '_refind_input';
+				_.input.id = '_refind_input';
 				_.count = document.createElement('p');
-				_.count.className = '_refind_count';
+				_.count.id = '_refind_count';
 				_.clickable_elements = _.getClickableElements();
 				_.wrapper.appendChild(_.input);
 				_.wrapper.appendChild(_.count);
