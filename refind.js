@@ -13,25 +13,25 @@
 			found_elements : [],
 
 		/* @end */
-		
+
 		/* @group setup */
-			
+
 			init : function(){
 
 				_.createElements();
 				_.focus();
 				_.bindEvents();
 				_.initialized = true;
-			
+
 			},
 
 			interpretKeyStrokes : function(event){
 
 				var is_alt_ctrl_f = (
-					event.keyCode === 70 && 
-					event.ctrlKey && 
+					event.keyCode === 70 &&
+					event.ctrlKey &&
 					event.altKey
-				), 
+				),
 				is_esc = event.keyCode === 27;
 
 				if(is_alt_ctrl_f){
@@ -39,11 +39,11 @@
 				} else if(is_esc) {
 					_.initialized && _.destroy();
 				}
-			 
+
 			},
 
 			focus : function(){
-			
+
 				_.input.focus();
 
 			},
@@ -53,7 +53,7 @@
 				_.wrapper.parentNode.removeChild(_.wrapper);
 
 			},
-		
+
 			createElements : function(){
 
 				_.wrapper = document.createElement('div');
@@ -70,7 +70,7 @@
 			},
 
 			getClickableElements : function(){
-			
+
 				var links = _.getArrayOfElements('a'),
 					inputs = _.getArrayOfElements('input'),
 					buttons = _.getArrayOfElements('button'),
@@ -91,7 +91,7 @@
 
 				var array = [],
 					elements = document.getElementsByTagName(selector);
-			
+
 				for(var i = 0, length = elements.length; i < length; i++){
 					array.push(elements[i]);
 				}
@@ -103,20 +103,24 @@
 			bindEvents : function(){
 
 				_.input.addEventListener('keydown', _.searchOrClick);
-			
+
 			},
 
 		/* @end */
-		
+
 		/* @group managing events */
-		
+
 			searchOrClick : function(event){
 
 				if (event.keyCode === 13) {
-					_.click(); 
+					if (event.shiftKey) {
+						_.openAll();
+					} else {
+						_.click();
+					}
 				} else if (event.keyCode === 9){
 					var cycle_back = event.shiftKey ? true : false;
-					_.cycleElements(cycle_back); 
+					_.cycleElements(cycle_back);
 					event.preventDefault && event.preventDefault();
 					event.stopPropagation && event.stopPropagation();
 					event.cancelBubble = true;
@@ -124,7 +128,7 @@
 				} else {
 					_.buffer(_.search)
 				}
-			
+
 			},
 
 			click : function(){
@@ -134,13 +138,26 @@
 
 			},
 
+			openAll : function(){
+
+				_.destroy();
+
+				for (var i = 0; i <= _.found_elements.length; i++) {
+					var selected_elem = _.found_elements[i];
+					var href = selected_elem.href;
+					href && window.open(href, '_blank');
+				}
+
+			},
+
+
 			bufferTimer : false,
-		
+
 			buffer : function(method){
 
 				clearTimeout(_.timer);
 				_.timer = setTimeout(method, 200);
-			
+
 			},
 
 			search : function(){
@@ -151,11 +168,11 @@
 				_.highlightFoundElements();
 
 			},
-		
+
 		/* @end */
 
 		/* @group finding dom elements */
-		
+
 			findClickableElementsByText : function(text){
 
 				var pattern = new RegExp(text, 'i');
@@ -170,7 +187,7 @@
 			},
 
 			clearFoundElements : function(){
-			
+
 				_.each(_.found_elements, function(elem){
 					_.removeClass(elem, _.highlight_class);
 					_.removeClass(elem, _.focus_class);
@@ -179,14 +196,14 @@
 				_.found_elements = [];
 
 			},
-		
+
 			highlightFoundElements : function(){
-			
+
 				_.each(_.found_elements, function(elem){
 					_.addClass(elem, _.highlight_class);
 				});
 
-				_.found_elements[0] && 
+				_.found_elements[0] &&
 					_.addClass(_.found_elements[0], _.focus_class) &&
 					_.scrollTo(_.found_elements[0]);
 
@@ -195,7 +212,7 @@
 			},
 
 			cycleElements : function(cycle_back){
-			
+
 				var shifted_elem,
 					removal_method = cycle_back ? 'pop' : 'shift',
 					addition_method = cycle_back ? 'unshift' : 'push';
@@ -211,7 +228,7 @@
 			},
 
 			scrollTo : function(elem){
-			
+
 				var top = _.getPosition(elem) - 100;
 				top = (top === NaN || top < 0) ? 0 : top;
 				window.scrollTo(0, top);
@@ -228,7 +245,7 @@
 					} while (elem = elem.offsetParent);
 					return [curtop];
 				}
-			
+
 			},
 
 		/* @end */
@@ -241,17 +258,17 @@
 					var item = array[i];
 					method.call(this, item);
 				}
-			
+
 			},
 
 			addClass : function(elem, class_name){
-			
+
 				elem.className += ' ' + class_name;
 
 			},
 
 			removeClass : function(elem, class_name){
-			
+
 				elem.className = elem.className.replace(class_name, ' ');
 
 			},
@@ -275,8 +292,8 @@
 			 }
 
 			}
-			
-		
+
+
 		/* @end */
 
 	};
