@@ -1,6 +1,6 @@
 {
 	"name": "Refind",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"description": "Fast on-page finding and clicking.",
 	"manifest_version": 2,
 	"icons": {

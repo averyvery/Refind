@@ -113,8 +113,10 @@
 			searchOrClick : function(event){
 
 				if (event.keyCode === 13) {
-					if (event.shiftKey) {
+					if (event.shiftKey && event.ctrlKey) {
 						_.openAll();
+					} else if (event.shiftKey) {
+						_.open();
 					} else {
 						_.click();
 					}
@@ -135,6 +137,14 @@
 
 				var selected_elem = _.found_elements[0];
 				selected_elem && _.fireEvent(selected_elem, 'click');
+
+			},
+
+			open : function(){
+
+				var selected_elem = _.found_elements[0];
+				var href = selected_elem.href;
+				href && window.open(href, '_blank');
 
 			},
 
